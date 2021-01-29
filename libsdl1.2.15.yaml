@@ -1,0 +1,46 @@
+app-id: org.libsdl.sdl
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+command: sdl-config
+
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --filesystem=host
+  
+modules:
+
+- name: glu
+  sources:
+  - type: archive
+    url: https://archive.mesa3d.org//glu/glu-9.0.1.tar.xz
+    sha256: fb5a4c2dd6ba6d1c21ab7c05129b0769544e1d68e1e3b0ffecb18e73c93055bc
+  cleanup:
+  - "/include"
+  - "/lib/*.a"
+  - "/lib/*.la"
+  - "/lib/pkgconfig"
+
+- name: SDL1
+  rm-configure: true
+  buildsystem: autotools
+  config-opts:
+    - "--disable-static"
+  cleanup:
+#  - "/bin"
+  - "/share/man"
+  - "/share/aclocal"
+  - "/include"
+  - "/lib/pkgconfig"
+  - "/lib/*.la"
+  - "/lib/*.a"
+  sources:
+  - type: archive
+    url: https://www.libsdl.org/release/SDL-1.2.15.tar.gz
+    sha256: d6d316a793e5e348155f0dd93b979798933fb98aa1edebcc108829d6474aad00
+  - type: patch
+    path: sdl-libx11-build.patch
+
+
