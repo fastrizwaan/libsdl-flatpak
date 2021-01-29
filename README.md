@@ -14,6 +14,8 @@ flatpak install flathub org.freedesktop.Platform/x86_64/20.08 org.freedesktop.Sd
 
 #Build
 ```
+git clone https://github.com/fastrizwaan/libsdl-flatpak.git
+cd libsdl-flatpak
 flatpak-builder --force-clean build-dir libsdl1.2.15.yaml
 flatpak-builder --install --user --force-clean build-dir libsdl1.2.15.yaml
 ```
